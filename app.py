@@ -11,7 +11,7 @@ st.sidebar.title("3D Icon Prompt System")
 st.sidebar.caption("운영 배너용 3D 아이콘 스타일 일관화 도구")
 st.sidebar.markdown("---")
 st.sidebar.write("**Version**: v1.0")
-st.sidebar.write("**Owner**: 운영디자인")
+st.sidebar.write("**Owner**: 권수경")
 st.sidebar.write("**Output**: Prompt / Negative Prompt / Style Guide")
 st.sidebar.markdown("---")
 st.sidebar.caption("3D 아이콘 생성 프롬프트를 유형별로 정리해주는 도구입니다.")
@@ -30,92 +30,39 @@ object_name = st.text_input("아이콘 오브젝트명", "shopping bag")
 icon_type = st.selectbox(
     "아이콘 유형",
     [
-        "01 Soft Commercial",
-        "02 Warm Ceramic",
-        "03 Floating Minimal",
-        "04 Clean Isometric"
+        "01 Pastel Jelly",
+        "02 Semi Glossy",
+        "03 Soft Clay",
+        "04 Basic"
     ]
 )
-
-# Color Palette
-palette_type = st.radio(
-    "컬러 팔레트",
-    [
-        "Soft Blue",
-        "Mint Fresh",
-        "Warm Pastel",
-        "Lavender Pink",
-        "Neutral Gray",
-        "Custom"
-    ],
-    horizontal=True
-)
-
-if palette_type == "Soft Blue":
-    color_tone = "soft pastel blue, light sky blue, soft gray"
-elif palette_type == "Mint Fresh":
-    color_tone = "mint, light green, ivory"
-elif palette_type == "Warm Pastel":
-    color_tone = "cream, peach, light yellow"
-elif palette_type == "Lavender Pink":
-    color_tone = "lavender, light pink, soft purple"
-elif palette_type == "Neutral Gray":
-    color_tone = "light gray, white, low-saturation blue"
-else:
-    color_tone = st.text_input(
-        "직접 입력",
-        "warm, slightly desaturated colors"
-    )
-
-st.caption(f"선택된 팔레트: {color_tone}")
 
 st.markdown("---")
 
 # Prompt Templates
 prompt_templates = {
-    "01 Soft Commercial": """
+    "01 Pastel Jelly": """
+Create a single 3D isometric icon of [object], in a soft pastel jelly-like style, with a very smooth rounded silhouette, simplified details, semi-translucent milky frosted material, soft diffused lighting, low contrast, and blurred gentle highlights.
+Use bright soft pastel colors, center the object in a clean 1:1 composition on a pure white background.
+No sharp highlights, no realistic texture, no harsh shadows, no text, no extra objects.
+""",
+
+    "02 Semi Glossy": """
+Create a single 3D isometric icon of [object], in a soft pastel jelly-like style, with a very smooth rounded silhouette, simplified details, semi-translucent milky frosted material, soft diffused lighting, low contrast, and blurred gentle highlights.
+Use bright soft pastel colors, center the object in a clean 1:1 composition on a pure white background.
+No sharp highlights, no realistic texture, no harsh shadows, no text, no extra objects.
+""",
+
+    "03 Soft Clay": """
+A single [object] icon, in a consistent soft rounded 3D icon style, cute and minimal, chunky toy-like form, smooth matte plastic / soft clay material, simplified details, warm pastel colors, soft studio lighting, subtle ambient occlusion, gentle shadow underneath, clean white background, centered composition, 3/4 isometric view, high-quality 3D render, no text, no logo, no extra props, no photorealism, no harsh shadows, no glossy metal, no realistic texture.
+""",
+
+    "04 Basic": """
 Create a single 3D isometric icon of [object] in a clean soft commercial app icon style.
 Use a simplified rounded silhouette, soft extruded geometry, smooth matte plastic with a subtle ceramic finish, and an ultra-clean textureless surface.
 No gloss, no reflections, no metallic shine.
-Use [color_tone].
+Use warm, slightly desaturated colors.
 Show a centered single object in a true 30-degree isometric view on a 1:1 canvas.
-Apply soft ambient studio lighting with very subtle form shading only.
-Present the object as a clean isolated icon, gently floating in space, with no floor shadow, no ground shadow, and no cast shadow.
-Use a clean pure white background only.
-No text, no extra elements, no floor line, no backdrop elements, high-resolution clean 3D render.
-""",
-
-    "02 Warm Ceramic": """
-Create a single 3D isometric icon of [object] in a warm soft ceramic app icon style.
-Use a simplified rounded silhouette, soft extruded geometry, smooth matte plastic with a subtle ceramic finish, and an ultra-clean textureless surface.
-No gloss, no reflections, no metallic shine.
-Use [color_tone] with a warm, slightly desaturated color mood.
-Show a centered single object in a true 30-degree isometric view on a 1:1 canvas.
-Apply soft ambient studio lighting with very subtle form shading only.
-Present the object as a clean isolated icon, gently floating in space, with no floor shadow, no ground shadow, and no cast shadow.
-Use a clean pure white background only.
-No text, no extra elements, no floor line, no backdrop elements, high-resolution clean 3D render.
-""",
-
-    "03 Floating Minimal": """
-Create a single 3D isometric icon of [object] in a clean floating minimal 3D icon style.
-Use a simplified rounded silhouette, soft extruded geometry, smooth matte plastic with a subtle ceramic finish, and an ultra-clean textureless surface.
-No gloss, no reflections, no metallic shine.
-Use [color_tone].
-Show a centered single object in a true 30-degree isometric view on a 1:1 canvas.
-Apply soft ambient studio lighting with very subtle form shading only.
-Present the object as a clean isolated icon, gently floating in space.
-Use no floor shadow, no ground shadow, and no cast shadow.
-Use a clean pure white background only.
-No text, no extra elements, no floor line, no backdrop elements, high-resolution clean 3D render.
-""",
-
-    "04 Clean Isometric": """
-Create a single 3D isometric icon of [object] in a clean soft commercial app icon style.
-Use a simplified rounded silhouette, soft extruded geometry, smooth matte plastic with a subtle ceramic finish, and an ultra-clean textureless surface.
-No gloss, no reflections, no metallic shine.
-Use [color_tone].
-Show a centered single object in a precise true 30-degree isometric view on a 1:1 canvas.
 Apply soft ambient studio lighting with very subtle form shading only.
 Present the object as a clean isolated icon, gently floating in space, with no floor shadow, no ground shadow, and no cast shadow.
 Use a clean pure white background only.
@@ -123,33 +70,78 @@ No text, no extra elements, no floor line, no backdrop elements, high-resolution
 """
 }
 
+style_guides = {
+    "01 Pastel Jelly": """
+Style Guide
+
+- Style Type: Pastel Jelly
+- Material: Semi-translucent milky frosted material
+- Form: Very smooth rounded silhouette
+- Detail Level: Simplified
+- Lighting: Soft diffused lighting
+- Contrast: Low contrast
+- Highlight: Blurred gentle highlights
+- Color: Bright soft pastel colors
+- Background: Pure white background
+- Composition: Clean 1:1 centered composition
+""",
+
+    "02 Semi Glossy": """
+Style Guide
+
+- Style Type: Semi Glossy
+- Material: Semi-translucent milky frosted material
+- Form: Very smooth rounded silhouette
+- Detail Level: Simplified
+- Lighting: Soft diffused lighting
+- Contrast: Low contrast
+- Highlight: Blurred gentle highlights
+- Color: Bright soft pastel colors
+- Background: Pure white background
+- Composition: Clean 1:1 centered composition
+""",
+
+    "03 Soft Clay": """
+Style Guide
+
+- Style Type: Soft Clay
+- Material: Smooth matte plastic / soft clay
+- Form: Cute, minimal, chunky toy-like form
+- Detail Level: Simplified
+- Lighting: Soft studio lighting
+- Shadow: Gentle shadow underneath
+- View: 3/4 isometric view
+- Color: Warm pastel colors
+- Background: Clean white background
+- Composition: Centered composition
+""",
+
+    "04 Basic": """
+Style Guide
+
+- Style Type: Basic
+- Material: Smooth matte plastic with subtle ceramic finish
+- Form: Simplified rounded silhouette / soft extruded geometry
+- Surface: Ultra-clean textureless surface
+- Lighting: Soft ambient studio lighting
+- Shadow: No floor shadow / no ground shadow / no cast shadow
+- View: True 30-degree isometric view
+- Color: Warm, slightly desaturated colors
+- Background: Pure white background
+- Composition: Clean 1:1 centered composition
+"""
+}
+
 if st.button("프롬프트 생성", type="primary"):
 
-    prompt = prompt_templates[icon_type]
-    prompt = prompt.replace("[object]", object_name)
-    prompt = prompt.replace("[color_tone]", color_tone)
+    prompt = prompt_templates[icon_type].replace("[object]", object_name)
 
     negative_prompt = """
 Negative Prompt:
-text, logo, brand name, extra objects, complex background, floor line, ground shadow, cast shadow, backdrop elements, glossy material, reflections, metallic shine, realistic metal, noisy texture, low-resolution render, blurry render, over-detailed object
+text, logo, brand name, extra objects, complex background, realistic texture, harsh shadows, sharp highlights, metallic shine, glossy metal, floor line, backdrop elements, photorealism, low-resolution render, blurry render
 """
 
-    style_guide = f"""
-Style Guide
-
-- Style Type: {icon_type}
-- View: True 30-degree Isometric View
-- Object: Single Centered Object
-- Geometry: Simplified Rounded Silhouette
-- Material: Smooth Matte Plastic with Subtle Ceramic Finish
-- Surface: Ultra-clean Textureless Surface
-- Lighting: Soft Ambient Studio Lighting
-- Shadow: No Floor Shadow / No Ground Shadow / No Cast Shadow
-- Background: Pure White Background
-- Color Palette: {palette_type}
-- Color Tone: {color_tone}
-- Canvas: 1:1
-"""
+    style_guide = style_guides[icon_type]
 
     safe_icon_type = icon_type.lower().replace(" ", "-")
     safe_object_name = object_name.lower().replace(" ", "-")
