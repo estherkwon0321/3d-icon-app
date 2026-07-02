@@ -10,7 +10,7 @@ st.set_page_config(
 st.sidebar.title("3D Icon Prompt System")
 st.sidebar.caption("3D 아이콘 스타일 프롬프트 도구")
 st.sidebar.markdown("---")
-st.sidebar.write("**Version**: v1.1")
+st.sidebar.write("**Version**: v1.2")
 st.sidebar.write("**Owner**: 운영디자인")
 st.sidebar.write("**Output**: Prompt / Negative Prompt / Style Guide")
 st.sidebar.markdown("---")
@@ -35,7 +35,8 @@ icon_type = st.selectbox(
         "03 Semi Glossy Vivid",
         "04 Pastel Jelly",
         "05 Brushed Metal Coin",
-        "06 Layered Paper Craft"
+        "06 Layered Paper Craft",
+        "07 Frosted Acrylic Blue"
     ]
 )
 
@@ -52,6 +53,7 @@ color_type = st.selectbox(
         "Neutral Gray",
         "Silver Metallic",
         "Soft Paper Pastel",
+        "Pastel Blue Acrylic",
         "Custom"
     ]
 )
@@ -76,6 +78,8 @@ elif color_type == "Silver Metallic":
     color_tone = "silver, cool gray, soft chrome, and subtle blue-gray highlights"
 elif color_type == "Soft Paper Pastel":
     color_tone = "soft pastel colors with gentle contrast"
+elif color_type == "Pastel Blue Acrylic":
+    color_tone = "a soft pastel blue palette using light sky blue, milky blue, and slightly deeper vivid blue on edges and thicker parts"
 else:
     color_tone = st.text_input(
         "직접 입력",
@@ -218,6 +222,28 @@ Shadow: Very soft small shadows between layers, subtle shadow underneath.
 Background: Clean pure white background only.
 
 Quality: High-resolution clean 3D render, polished editorial icon quality, simple and easy to recognize.
+""",
+
+    "07 Frosted Acrylic Blue": """
+Subject: A single [object] icon.
+
+Style: Soft translucent pastel 3D icon style, clean commercial app icon, minimal, dreamy, polished, and visually simple.
+
+Shape / Form: A simplified [object] with a rounded silhouette, soft rounded corners, smooth edges, and slightly puffy proportions. The form should feel like a small cute object made of soft acrylic or jelly plastic. Avoid sharp edges and complex details.
+
+Material: Semi-translucent milky frosted acrylic material, soft jelly-like plastic, smooth surface, subtle transparency, gentle depth, soft diffused highlights, no strong gloss, no metallic texture.
+
+Color: [color_tone].
+
+View / Composition: True isometric view, slightly from above, centered single object, clean 1:1 square canvas. The object should be placed large in the center with enough white space around it.
+
+Lighting: Soft diffused studio lighting, low contrast, gentle colored glow, blurred soft highlights, subtle form shading only.
+
+Shadow: Very soft and faint tinted shadow only, no harsh cast shadow.
+
+Background: Pure white background only, no floor line, no backdrop elements.
+
+Quality: High-resolution clean 3D render, soft polished commercial icon quality.
 """
 }
 
@@ -244,6 +270,10 @@ Text, logo, extra objects, busy background, rusty metal, scratched texture, over
 
     "06 Layered Paper Craft": """
 Text, logo, extra objects, realistic paper fiber, dirty texture, glossy surface, metallic material, harsh shadows, complex background, overly detailed decoration, low-resolution render.
+""",
+
+    "07 Frosted Acrylic Blue": """
+Text, logo, brand mark, extra objects, complex background, harsh shadows, realistic paper texture, leather texture, metallic material, strong reflections, photorealism, excessive detail.
 """
 }
 
@@ -332,6 +362,21 @@ Style Guide
 - Shadow: Very soft small shadows between layers, subtle shadow underneath
 - Background: Clean pure white background only
 - Quality: High-resolution clean 3D render, polished paper-craft icon quality
+""",
+
+    "07 Frosted Acrylic Blue": """
+Style Guide
+
+- Style Type: Frosted Acrylic Blue
+- Mood: Dreamy, polished, clean, commercial, visually simple
+- Shape / Form: Rounded silhouette, soft rounded corners, smooth edges, slightly puffy proportions
+- Material: Semi-translucent milky frosted acrylic, soft jelly-like plastic
+- Surface: Smooth surface, subtle transparency, gentle depth
+- View / Composition: True isometric view, slightly from above, centered single object, clean 1:1 square canvas
+- Lighting: Soft diffused studio lighting, low contrast, blurred soft highlights
+- Shadow: Very soft faint tinted shadow only
+- Background: Pure white background only, no floor line, no backdrop elements
+- Quality: High-resolution clean 3D render, soft polished commercial icon quality
 """
 }
 
