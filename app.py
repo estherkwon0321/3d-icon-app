@@ -10,7 +10,7 @@ st.set_page_config(
 st.sidebar.title("3D Icon Prompt System")
 st.sidebar.caption("3D 아이콘 스타일 프롬프트 도구")
 st.sidebar.markdown("---")
-st.sidebar.write("**Version**: v1.0")
+st.sidebar.write("**Version**: v1.1")
 st.sidebar.write("**Owner**: 운영디자인")
 st.sidebar.write("**Output**: Prompt / Negative Prompt / Style Guide")
 st.sidebar.markdown("---")
@@ -33,7 +33,9 @@ icon_type = st.selectbox(
         "01 Clean Soft Commercial",
         "02 Soft Clay Commercial",
         "03 Semi Glossy Vivid",
-        "04 Pastel Jelly"
+        "04 Pastel Jelly",
+        "05 Brushed Metal Coin",
+        "06 Layered Paper Craft"
     ]
 )
 
@@ -48,6 +50,8 @@ color_type = st.selectbox(
         "Mint Fresh",
         "Lavender Pink",
         "Neutral Gray",
+        "Silver Metallic",
+        "Soft Paper Pastel",
         "Custom"
     ]
 )
@@ -68,6 +72,10 @@ elif color_type == "Lavender Pink":
     color_tone = "lavender, light pink, and soft purple"
 elif color_type == "Neutral Gray":
     color_tone = "light gray, white, and low-saturation blue"
+elif color_type == "Silver Metallic":
+    color_tone = "silver, cool gray, soft chrome, and subtle blue-gray highlights"
+elif color_type == "Soft Paper Pastel":
+    color_tone = "soft pastel colors with gentle contrast"
 else:
     color_tone = st.text_input(
         "직접 입력",
@@ -166,6 +174,50 @@ Shadow: Very soft subtle shadow only, no harsh shadows.
 Background: Pure white background only.
 
 Quality: High-resolution clean 3D render, soft polished finish.
+""",
+
+    "05 Brushed Metal Coin": """
+Subject: A single [object] icon.
+
+Style: Premium brushed metal 3D icon style, clean, polished, modern, and slightly futuristic.
+
+Shape / Form: Simplified rounded silhouette, solid coin-like volume, beveled edges, clean embossed details, centered single object.
+
+Material: Smooth metal with a subtle brushed finish, soft metallic reflection, refined beveled surface, no rough scratches, no damaged texture.
+
+Color: [color_tone].
+
+View / Composition: Front-facing 3/4 view, centered single object, clean 1:1 square canvas.
+
+Lighting: Soft studio lighting from the upper left, with controlled highlights along the beveled edges.
+
+Shadow: Very soft subtle shadow only, no harsh cast shadow.
+
+Background: Clean pure white background only.
+
+Quality: High-resolution clean 3D render, premium polished icon quality, refined commercial product icon finish.
+""",
+
+    "06 Layered Paper Craft": """
+Subject: A single [object] icon.
+
+Style: Layered paper craft 3D icon style, clean, soft, friendly, and minimal.
+
+Shape / Form: Simplified rounded silhouette, flat layered cutout shapes, soft stacked paper depth, centered single object.
+
+Material: Smooth matte paper material, subtle paper thickness, clean cut edges, soft tactile surface, no plastic, no metal, no glossy finish.
+
+Color: [color_tone].
+
+View / Composition: Slight 3/4 isometric view, centered single object, clean 1:1 square canvas.
+
+Lighting: Soft diffused studio lighting, gentle depth between paper layers.
+
+Shadow: Very soft small shadows between layers, subtle shadow underneath.
+
+Background: Clean pure white background only.
+
+Quality: High-resolution clean 3D render, polished editorial icon quality, simple and easy to recognize.
 """
 }
 
@@ -184,6 +236,14 @@ Text, logo, extra props, photorealism, realistic texture, rough surface, metalli
 
     "04 Pastel Jelly": """
 Text, logo, extra objects, photorealism, realistic texture, sharp highlights, harsh shadows, metallic material, overly detailed surfaces.
+""",
+
+    "05 Brushed Metal Coin": """
+Text, logo, extra objects, busy background, rusty metal, scratched texture, overly realistic coin, harsh reflections, dark mood, noisy surface, low-resolution render.
+""",
+
+    "06 Layered Paper Craft": """
+Text, logo, extra objects, realistic paper fiber, dirty texture, glossy surface, metallic material, harsh shadows, complex background, overly detailed decoration, low-resolution render.
 """
 }
 
@@ -243,6 +303,35 @@ Style Guide
 - Shadow: Very soft subtle shadow only
 - Background: Pure white background only
 - Quality: High-resolution clean 3D render, soft polished finish
+""",
+
+    "05 Brushed Metal Coin": """
+Style Guide
+
+- Style Type: Brushed Metal Coin
+- Mood: Premium, polished, modern, slightly futuristic
+- Shape / Form: Rounded silhouette, solid coin-like volume, beveled edges, embossed details
+- Material: Smooth metal with subtle brushed finish
+- Reflection: Soft metallic reflection
+- View / Composition: Front-facing 3/4 view, centered single object, clean 1:1 square canvas
+- Lighting: Soft studio lighting from the upper left
+- Shadow: Very soft subtle shadow only
+- Background: Clean pure white background only
+- Quality: High-resolution clean 3D render, premium polished icon finish
+""",
+
+    "06 Layered Paper Craft": """
+Style Guide
+
+- Style Type: Layered Paper Craft
+- Mood: Soft, friendly, minimal, editorial
+- Shape / Form: Flat layered cutout shapes, soft stacked paper depth
+- Material: Smooth matte paper, subtle paper thickness, clean cut edges
+- View / Composition: Slight 3/4 isometric view, centered single object, clean 1:1 square canvas
+- Lighting: Soft diffused studio lighting
+- Shadow: Very soft small shadows between layers, subtle shadow underneath
+- Background: Clean pure white background only
+- Quality: High-resolution clean 3D render, polished paper-craft icon quality
 """
 }
 
