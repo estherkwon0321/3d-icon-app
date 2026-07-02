@@ -11,7 +11,7 @@ st.sidebar.title("3D Icon Prompt System")
 st.sidebar.caption("3D 아이콘 스타일 프롬프트 도구")
 st.sidebar.markdown("---")
 st.sidebar.write("**Version**: v1.2")
-st.sidebar.write("**Owner**: 운영디자인")
+st.sidebar.write("**Owner**: 권수경")
 st.sidebar.write("**Output**: Prompt / Negative Prompt / Style Guide")
 st.sidebar.markdown("---")
 st.sidebar.caption("선택한 스타일과 색상 톤에 맞춰 3D 아이콘 생성 프롬프트를 정리해주는 도구입니다.")
@@ -25,7 +25,7 @@ st.markdown("---")
 # Input
 st.subheader("아이콘 정보 입력")
 
-object_name = st.text_input("아이콘 오브젝트명", "N동전")
+object_name = st.text_input("아이콘 오브젝트명", "쇼핑백")
 
 icon_type = st.selectbox(
     "아이콘 유형",
