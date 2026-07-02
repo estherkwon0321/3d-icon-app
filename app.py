@@ -14,11 +14,11 @@ st.sidebar.write("**Version**: v1.0")
 st.sidebar.write("**Owner**: 운영디자인")
 st.sidebar.write("**Output**: Prompt / Negative Prompt / Style Guide")
 st.sidebar.markdown("---")
-st.sidebar.caption("선택한 스타일에 맞춰 3D 아이콘 생성 프롬프트를 정리해주는 도구입니다.")
+st.sidebar.caption("선택한 스타일과 색상 톤에 맞춰 3D 아이콘 생성 프롬프트를 정리해주는 도구입니다.")
 
 # Header
 st.title("3D Icon Prompt System")
-st.write("선택한 스타일에 맞춰 3D 아이콘 생성 프롬프트를 만들 수 있습니다.")
+st.write("선택한 스타일과 색상 톤에 맞춰 3D 아이콘 생성 프롬프트를 만들 수 있습니다.")
 
 st.markdown("---")
 
@@ -37,6 +37,45 @@ icon_type = st.selectbox(
     ]
 )
 
+color_type = st.selectbox(
+    "색상 톤",
+    [
+        "Warm Desaturated",
+        "Warm Pastel",
+        "Bright Vivid",
+        "Bright Soft Pastel",
+        "Soft Blue",
+        "Mint Fresh",
+        "Lavender Pink",
+        "Neutral Gray",
+        "Custom"
+    ]
+)
+
+if color_type == "Warm Desaturated":
+    color_tone = "warm, slightly desaturated colors"
+elif color_type == "Warm Pastel":
+    color_tone = "warm pastel colors"
+elif color_type == "Bright Vivid":
+    color_tone = "a vibrant and bright color palette with high saturation"
+elif color_type == "Bright Soft Pastel":
+    color_tone = "bright soft pastel colors"
+elif color_type == "Soft Blue":
+    color_tone = "soft pastel blue, light sky blue, and soft gray"
+elif color_type == "Mint Fresh":
+    color_tone = "mint, light green, and ivory"
+elif color_type == "Lavender Pink":
+    color_tone = "lavender, light pink, and soft purple"
+elif color_type == "Neutral Gray":
+    color_tone = "light gray, white, and low-saturation blue"
+else:
+    color_tone = st.text_input(
+        "직접 입력",
+        "warm pastel orange, cream white, and soft yellow"
+    )
+
+st.caption(f"선택된 색상 톤: {color_tone}")
+
 st.markdown("---")
 
 # Prompt Templates
@@ -50,7 +89,7 @@ Shape / Form: Simplified rounded silhouette, soft extruded geometry, balanced pr
 
 Material: Smooth matte plastic with a subtle ceramic finish, ultra-clean textureless surface, no gloss, no reflections, no metallic shine.
 
-Color: Warm, slightly desaturated colors.
+Color: [color_tone].
 
 View / Composition: True 30-degree isometric view, centered single object, 1:1 square canvas.
 
@@ -72,7 +111,7 @@ Shape / Form: Chunky toy-like form, rounded edges, simplified details, centered 
 
 Material: Smooth matte plastic / soft clay material.
 
-Color: Warm pastel colors.
+Color: [color_tone].
 
 View / Composition: 3/4 isometric view, centered composition, clean 1:1 square canvas.
 
@@ -94,7 +133,7 @@ Shape / Form: Rounded silhouette, simplified details, slightly puffy and playful
 
 Material: Semi-glossy clay material with subsurface scattering.
 
-Color: Vibrant and bright color palette, high saturation.
+Color: [color_tone].
 
 View / Composition: 3/4 isometric view, centered single object, clean 1:1 square canvas.
 
@@ -116,7 +155,7 @@ Shape / Form: Very smooth rounded silhouette, simplified details, soft and minim
 
 Material: Semi-translucent milky frosted material, jelly-like appearance.
 
-Color: Bright soft pastel colors.
+Color: [color_tone].
 
 View / Composition: Isometric view, centered single object, clean 1:1 square canvas.
 
@@ -157,7 +196,6 @@ Style Guide
 - Shape / Form: Simplified rounded silhouette, soft extruded geometry, balanced proportions
 - Material: Smooth matte plastic with subtle ceramic finish
 - Surface: Ultra-clean textureless surface
-- Color: Warm, slightly desaturated colors
 - View / Composition: True 30-degree isometric view, centered single object, 1:1 square canvas
 - Lighting: Soft ambient studio lighting with very subtle form shading only
 - Shadow: No floor shadow / no ground shadow / no cast shadow
@@ -172,7 +210,6 @@ Style Guide
 - Mood: Cute, minimal, friendly, clean, commercial
 - Shape / Form: Chunky toy-like form, rounded edges, simplified details
 - Material: Smooth matte plastic / soft clay
-- Color: Warm pastel colors
 - View / Composition: 3/4 isometric view, centered composition, clean 1:1 square canvas
 - Lighting: Soft studio lighting with subtle ambient occlusion
 - Shadow: Gentle shadow underneath
@@ -187,7 +224,6 @@ Style Guide
 - Mood: Bright, cheerful, vivid, eye-catching
 - Shape / Form: Rounded silhouette, simplified details, slightly puffy and playful form
 - Material: Semi-glossy clay material with subsurface scattering
-- Color: Vibrant bright color palette, high saturation
 - View / Composition: 3/4 isometric view, centered single object, clean 1:1 square canvas
 - Lighting: Bright studio lighting
 - Shadow: Very soft subtle shadow only
@@ -202,7 +238,6 @@ Style Guide
 - Mood: Dreamy, soft, playful, clean
 - Shape / Form: Very smooth rounded silhouette, simplified details, soft minimal single object
 - Material: Semi-translucent milky frosted material, jelly-like appearance
-- Color: Bright soft pastel colors
 - View / Composition: Isometric view, centered single object, clean 1:1 square canvas
 - Lighting: Soft diffused lighting, low contrast, blurred gentle highlights
 - Shadow: Very soft subtle shadow only
@@ -212,9 +247,19 @@ Style Guide
 }
 
 if st.button("프롬프트 생성", type="primary"):
-    prompt = prompt_templates[icon_type].replace("[object]", object_name)
+    prompt = prompt_templates[icon_type]
+    prompt = prompt.replace("[object]", object_name)
+    prompt = prompt.replace("[color_tone]", color_tone)
+
     negative_prompt = negative_prompts[icon_type]
-    style_guide = style_guides[icon_type]
+
+    style_guide = style_guides[icon_type] + f"""
+
+Color Guide
+
+- Color Type: {color_type}
+- Color Tone: {color_tone}
+"""
 
     safe_icon_type = icon_type.lower().replace(" ", "-")
     safe_object_name = object_name.replace(" ", "-")
