@@ -44,4 +44,6 @@ if st.button("프롬프트 생성"):
 텍스트, 로고, 복잡한 배경, 과한 광택,
 리얼한 금속 재질, 지나치게 세밀한 장식은 제외한다.
 """
-    st.text_area("생성된 프롬프트", prompt, height=350)
+
+    st.subheader("생성된 프롬프트")
+    st.code(prompt, language=None)
