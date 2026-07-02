@@ -8,13 +8,13 @@ st.set_page_config(
 
 # Sidebar
 st.sidebar.title("3D Icon Prompt System")
-st.sidebar.caption("운영 배너용 3D 아이콘 스타일 일관화 도구")
+st.sidebar.caption("운영 배너용 3D 아이콘 스타일 프롬프트 도구")
 st.sidebar.markdown("---")
 st.sidebar.write("**Version**: v1.0")
 st.sidebar.write("**Owner**: 운영디자인")
 st.sidebar.write("**Output**: Prompt / Negative Prompt / Style Guide")
 st.sidebar.markdown("---")
-st.sidebar.caption("3D 아이콘 생성 프롬프트를 유형별로 정리해주는 도구입니다.")
+st.sidebar.caption("선택한 스타일에 맞춰 3D 아이콘 생성 프롬프트를 정리해주는 도구입니다.")
 
 # Header
 st.title("3D Icon Prompt System")
@@ -25,168 +25,196 @@ st.markdown("---")
 # Input
 st.subheader("아이콘 정보 입력")
 
-object_name = st.text_input("아이콘 오브젝트명", "shopping bag")
+object_name = st.text_input("아이콘 오브젝트명", "N동전")
 
 icon_type = st.selectbox(
     "아이콘 유형",
     [
-        "01 Pastel Jelly",
-        "02 Semi Glossy",
-        "03 Soft Clay",
-        "04 Basic"
+        "01 글로시 홀로그램",
+        "02 귀엽고 부드러운 클레이",
+        "03 파스텔 블루 미니멀",
+        "04 따뜻한 소프트 클레이"
     ]
 )
-
-color_type = st.selectbox(
-    "색상 톤",
-    [
-        "Bright Soft Pastel",
-        "Warm Pastel",
-        "Soft Blue",
-        "Mint Fresh",
-        "Lavender Pink",
-        "Neutral Gray",
-        "Custom"
-    ]
-)
-
-if color_type == "Bright Soft Pastel":
-    color_tone = "bright soft pastel colors"
-elif color_type == "Warm Pastel":
-    color_tone = "warm pastel colors"
-elif color_type == "Soft Blue":
-    color_tone = "soft pastel blue, light sky blue, soft gray"
-elif color_type == "Mint Fresh":
-    color_tone = "mint, light green, ivory"
-elif color_type == "Lavender Pink":
-    color_tone = "lavender, light pink, soft purple"
-elif color_type == "Neutral Gray":
-    color_tone = "light gray, white, low-saturation blue"
-else:
-    color_tone = st.text_input(
-        "직접 입력",
-        "warm, slightly desaturated colors"
-    )
-
-st.caption(f"선택된 색상 톤: {color_tone}")
 
 st.markdown("---")
 
 # Prompt Templates
 prompt_templates = {
-    "01 Pastel Jelly": """
-Create a single 3D isometric icon of [object], in a soft pastel jelly-like style, with a very smooth rounded silhouette, simplified details, semi-translucent milky frosted material, soft diffused lighting, low contrast, and blurred gentle highlights.
-Center the object in a clean 1:1 composition on a pure white background.
-No sharp highlights, no realistic texture, no harsh shadows, no text, no extra objects.
+    "01 글로시 홀로그램": """
+[오브젝트명]을 중심으로 한 글로시 홀로그램 3D 일러스트를 생성한다.
+
+스타일은 투명한 유리, 젤리, 아크릴 소재가 섞인 듯한 고광택 3D 아이콘으로 표현한다.
+오브젝트는 둥글고 매끄러운 형태로 만들며,
+투명도와 굴절감이 느껴지도록 한다.
+표면에는 선명한 하이라이트와 부드러운 반사광을 넣어 반짝이는 느낌을 강조한다.
+
+색상은 블루, 퍼플, 핑크, 코랄, 오렌지 계열이 자연스럽게 섞인 홀로그램 그라데이션으로 구성한다.
+부분적으로 색이 겹쳐 보이는 투명한 레이어감을 표현한다.
+전체 분위기는 밝고 몽환적이며 미래적인 느낌으로 연출한다.
+
+카메라는 정면 기준 약간 위에서 내려다보는 3/4 view로 설정한다.
+오브젝트는 중앙에 크게 배치하고, 사방에 충분한 여백을 둔다.
+조명은 강하지만 부드럽게 처리하며,
+유리 표면에 세로형 하이라이트가 자연스럽게 보이도록 한다.
+바닥에는 아주 연하고 흐릿한 그림자를 둔다.
+
+배경은 순수한 흰색으로 처리한다.
+
+텍스트, 로고, 복잡한 배경, 어두운 분위기, 무광 재질, 지나치게 사실적인 금속 질감은 제외한다.
 """,
 
-    "02 Semi Glossy": """
-Create a single 3D isometric icon of [object], in a soft semi-glossy 3D app icon style, with a very smooth rounded silhouette, simplified details, softly polished plastic material, subtle semi-gloss finish, soft diffused lighting, low contrast, and gentle highlights.
-Center the object in a clean 1:1 composition on a pure white background.
-No sharp highlights, no realistic texture, no harsh shadows, no text, no extra objects.
+    "02 귀엽고 부드러운 클레이": """
+[오브젝트명]을 중심으로 한 귀엽고 부드러운 3D 아이콘을 생성한다.
+
+스타일은 소프트 클레이 또는 무광 플라스틱 느낌의 미니멀 3D 일러스트로 표현한다.
+전체 형태는 둥글고 도톰하게 만들고, 손으로 빚은 듯한 말랑한 인상을 준다.
+외곽선이나 날카로운 모서리는 사용하지 않고, 모든 부분을 부드럽게 라운드 처리한다.
+
+색상은 따뜻한 파스텔톤을 사용한다.
+메인 컬러는 오렌지, 옐로우, 크림 화이트 계열로 구성하고,
+친근하고 밝은 분위기가 느껴지도록 한다.
+표면은 매끈하지만 과한 광택 없이 부드러운 무광 질감으로 표현한다.
+
+카메라는 정면에 가까운 3/4 view로 설정한다.
+오브젝트는 중앙에 크게 배치하되 사방에 여백을 충분히 둔다.
+조명은 좌상단에서 부드럽게 들어오며,
+오브젝트 아래에는 짧고 은은한 그림자를 넣는다.
+
+배경은 순수한 흰색으로 처리한다.
+
+텍스트, 로고, 복잡한 배경, 리얼한 금속 재질, 강한 반사광, 과도한 디테일은 제외한다.
 """,
 
-    "03 Soft Clay": """
-A single [object] icon, in a consistent soft rounded 3D icon style, cute and minimal, chunky toy-like form, smooth matte plastic / soft clay material, simplified details, soft studio lighting, subtle ambient occlusion, gentle shadow underneath, clean white background, centered composition, 3/4 isometric view, high-quality 3D render, no text, no logo, no extra props, no photorealism, no harsh shadows, no glossy metal, no realistic texture.
+    "03 파스텔 블루 미니멀": """
+[오브젝트명]을 중심으로 한 미니멀 3D 아이콘을 생성한다.
+
+스타일은 부드럽고 깨끗한 파스텔 블루 톤의 3D 일러스트이며,
+전체 형태는 단순하고 둥글게 정리한다.
+모서리는 모두 라운드 처리하고, 두껍고 말랑한 형태로 표현한다.
+
+재질은 반투명한 유리 느낌과 부드러운 플라스틱 질감을 섞어 표현한다.
+표면은 매끈하고 은은한 광택이 있지만 과하게 반짝이지 않도록 한다.
+화이트와 라이트 블루, 스카이 블루 계열을 중심으로 사용한다.
+
+카메라는 정면 기준 약간 위에서 내려다보는 3/4 view로 설정한다.
+오브젝트는 중앙에 배치하고, 사방에 충분한 여백을 둔다.
+조명은 부드럽고 밝게 처리하며, 좌상단에서 자연스럽게 들어오게 한다.
+바닥에는 짧고 흐릿한 그림자를 넣어 입체감을 준다.
+
+배경은 순수한 흰색으로 처리한다.
+
+텍스트, 로고, 복잡한 배경, 강한 대비, 금속성 재질, 지나치게 세밀한 장식은 제외한다.
 """,
 
-    "04 Basic": """
-Create a single 3D isometric icon of [object] in a clean soft commercial app icon style.
-Use a simplified rounded silhouette, soft extruded geometry, smooth matte plastic with a subtle ceramic finish, and an ultra-clean textureless surface.
-No gloss, no reflections, no metallic shine.
-Show a centered single object in a true 30-degree isometric view on a 1:1 canvas.
-Apply soft ambient studio lighting with very subtle form shading only.
-Present the object as a clean isolated icon, gently floating in space, with no floor shadow, no ground shadow, and no cast shadow.
-Use a clean pure white background only.
-No text, no extra elements, no floor line, no backdrop elements, high-resolution clean 3D render.
+    "04 따뜻한 소프트 클레이": """
+[오브젝트명]을 중심으로 한 귀엽고 따뜻한 소프트 클레이 3D 아이콘을 생성한다.
+
+스타일은 장난감처럼 둥글고 말랑한 3D 일러스트이며,
+무광에 가까운 클레이 또는 부드러운 플라스틱 질감으로 표현한다.
+전체 형태는 단순하지만 볼륨감 있게 만들고,
+각 요소는 도톰하고 둥근 형태로 구성한다.
+흐르는 크림, 말랑한 장식, 둥근 받침대처럼 부드러운 곡선을 적극적으로 사용한다.
+
+색상은 밝고 따뜻한 파스텔톤을 사용한다.
+옐로우, 코랄 핑크, 스카이 블루, 오렌지 계열을 조화롭게 배치한다.
+강한 대비보다는 부드럽고 친근한 색 조합을 사용한다.
+
+카메라는 정면 기준 약간 위에서 내려다보는 3/4 view로 설정한다.
+오브젝트는 중앙에 배치하고 사방에 충분한 여백을 둔다.
+조명은 좌상단에서 부드럽게 들어오게 하고,
+오브젝트 아래에는 짧고 은은한 그림자를 넣어 안정감을 준다.
+
+배경은 순수한 흰색으로 처리한다.
+
+텍스트, 로고, 복잡한 배경, 금속성 재질, 과한 광택, 리얼한 질감, 지나치게 세밀한 장식은 제외한다.
 """
 }
 
 style_guides = {
-    "01 Pastel Jelly": """
+    "01 글로시 홀로그램": """
 Style Guide
 
-- Style Type: Pastel Jelly
-- Material: Semi-translucent milky frosted material
-- Form: Very smooth rounded silhouette
-- Detail Level: Simplified
-- Lighting: Soft diffused lighting
-- Contrast: Low contrast
-- Highlight: Blurred gentle highlights
-- Background: Pure white background
-- Composition: Clean 1:1 centered composition
+- Style Type: 글로시 홀로그램
+- Material: 투명 유리 + 젤리 + 아크릴 느낌의 고광택 소재
+- Form: 둥글고 매끄러운 형태
+- Transparency: 투명도와 굴절감 표현
+- Highlight: 선명한 하이라이트와 부드러운 반사광
+- Color: 블루, 퍼플, 핑크, 코랄, 오렌지 홀로그램 그라데이션
+- Mood: 밝고 몽환적이며 미래적인 분위기
+- Camera: 3/4 view
+- Background: 순수한 흰색
 """,
 
-    "02 Semi Glossy": """
+    "02 귀엽고 부드러운 클레이": """
 Style Guide
 
-- Style Type: Semi Glossy
-- Material: Softly polished plastic
-- Finish: Subtle semi-gloss finish
-- Form: Very smooth rounded silhouette
-- Detail Level: Simplified
-- Lighting: Soft diffused lighting
-- Contrast: Low contrast
-- Highlight: Gentle highlights
-- Background: Pure white background
-- Composition: Clean 1:1 centered composition
+- Style Type: 귀엽고 부드러운 클레이
+- Material: 소프트 클레이 / 무광 플라스틱
+- Form: 둥글고 도톰한 형태, 말랑한 인상
+- Edge: 모든 부분 라운드 처리
+- Color: 오렌지, 옐로우, 크림 화이트 계열의 따뜻한 파스텔톤
+- Lighting: 좌상단에서 들어오는 부드러운 조명
+- Shadow: 짧고 은은한 그림자
+- Camera: 정면에 가까운 3/4 view
+- Background: 순수한 흰색
 """,
 
-    "03 Soft Clay": """
+    "03 파스텔 블루 미니멀": """
 Style Guide
 
-- Style Type: Soft Clay
-- Material: Smooth matte plastic / soft clay
-- Form: Cute, minimal, chunky toy-like form
-- Detail Level: Simplified
-- Lighting: Soft studio lighting
-- Shadow: Gentle shadow underneath
-- View: 3/4 isometric view
-- Background: Clean white background
-- Composition: Centered composition
+- Style Type: 파스텔 블루 미니멀
+- Material: 반투명 유리 + 부드러운 플라스틱 질감
+- Form: 단순하고 둥근 형태, 두껍고 말랑한 느낌
+- Surface: 은은한 광택
+- Color: 화이트, 라이트 블루, 스카이 블루 계열
+- Lighting: 밝고 부드러운 조명
+- Shadow: 짧고 흐릿한 그림자
+- Camera: 3/4 view
+- Background: 순수한 흰색
 """,
 
-    "04 Basic": """
+    "04 따뜻한 소프트 클레이": """
 Style Guide
 
-- Style Type: Basic
-- Material: Smooth matte plastic with subtle ceramic finish
-- Form: Simplified rounded silhouette / soft extruded geometry
-- Surface: Ultra-clean textureless surface
-- Lighting: Soft ambient studio lighting
-- Shadow: No floor shadow / no ground shadow / no cast shadow
-- View: True 30-degree isometric view
-- Background: Pure white background
-- Composition: Clean 1:1 centered composition
+- Style Type: 따뜻한 소프트 클레이
+- Material: 무광 클레이 / 부드러운 플라스틱
+- Form: 장난감처럼 둥글고 말랑한 형태
+- Detail: 도톰하고 둥근 요소, 부드러운 곡선 적극 사용
+- Color: 옐로우, 코랄 핑크, 스카이 블루, 오렌지 계열의 밝은 파스텔톤
+- Lighting: 좌상단에서 들어오는 부드러운 조명
+- Shadow: 짧고 은은한 그림자
+- Camera: 3/4 view
+- Background: 순수한 흰색
+"""
+}
+
+negative_prompts = {
+    "01 글로시 홀로그램": """
+텍스트, 로고, 복잡한 배경, 어두운 분위기, 무광 재질, 지나치게 사실적인 금속 질감, 저해상도, 흐릿한 렌더링, 과도한 소품 추가
+""",
+
+    "02 귀엽고 부드러운 클레이": """
+텍스트, 로고, 복잡한 배경, 리얼한 금속 재질, 강한 반사광, 과도한 디테일, 저해상도, 흐릿한 렌더링, 불필요한 추가 오브젝트
+""",
+
+    "03 파스텔 블루 미니멀": """
+텍스트, 로고, 복잡한 배경, 강한 대비, 금속성 재질, 지나치게 세밀한 장식, 저해상도, 흐릿한 렌더링, 불필요한 추가 오브젝트
+""",
+
+    "04 따뜻한 소프트 클레이": """
+텍스트, 로고, 복잡한 배경, 금속성 재질, 과한 광택, 리얼한 질감, 지나치게 세밀한 장식, 저해상도, 흐릿한 렌더링, 불필요한 추가 소품
 """
 }
 
 if st.button("프롬프트 생성", type="primary"):
 
-    base_prompt = prompt_templates[icon_type].replace("[object]", object_name)
-
-    color_prompt = f"""
-Use {color_tone} as the color direction.
-Keep the colors clean, harmonious, and suitable for a modern commercial digital product.
-"""
-
-    prompt = base_prompt.strip() + "\n\n" + color_prompt.strip()
-
-    negative_prompt = """
-Negative Prompt:
-text, logo, brand name, extra objects, complex background, realistic texture, harsh shadows, sharp highlights, metallic shine, glossy metal, floor line, backdrop elements, photorealism, low-resolution render, blurry render
-"""
-
-    style_guide = style_guides[icon_type] + f"""
-
-Color Guide
-
-- Color Type: {color_type}
-- Color Tone: {color_tone}
-"""
+    prompt = prompt_templates[icon_type].replace("[오브젝트명]", object_name)
+    style_guide = style_guides[icon_type]
+    negative_prompt = negative_prompts[icon_type]
 
     safe_icon_type = icon_type.lower().replace(" ", "-")
-    safe_object_name = object_name.lower().replace(" ", "-")
+    safe_object_name = object_name.replace(" ", "-")
     file_name = f"3d-icon_{safe_icon_type}_{safe_object_name}_v01.png"
 
     tab1, tab2, tab3 = st.tabs(
